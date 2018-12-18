@@ -20,6 +20,7 @@ CREATE TABLE drink (
 
 CREATE TABLE user_drink (
   user_drink_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_kakao_id BIGINT UNSIGNED NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
   level TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (user_drink_id)
@@ -39,6 +40,7 @@ CREATE TABLE drink_like (
 
 CREATE TABLE drink_history (
   drink_history_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_kakao_id BIGINT UNSIGNED NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
   drink_capacity TINYINT NOT NULL DEFAULT 0,
   drunk_at DATE NOT NULL,
