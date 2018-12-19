@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/yellowcard-api.iml" filepath="$PROJECT_DIR$/.idea/modules/yellowcard-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yellowcard-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/yellowcard-api_main.iml" group="yellowcard-api" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yellowcard-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/yellowcard-api_test.iml" group="yellowcard-api" />
     </modules>
   </component>
 </project>
