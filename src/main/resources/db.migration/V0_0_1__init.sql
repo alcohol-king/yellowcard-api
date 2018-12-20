@@ -1,5 +1,6 @@
 CREATE TABLE user (
   user_id BIGINT UNSIGNED NOT NULL,
+  external_id BIGINT UNSIGNED NOT NULL,
   name VARCHAR(20) NOT NULL,
   profile_image_url TEXT NULL,
   thumbnail_image_url TEXT NULL,
