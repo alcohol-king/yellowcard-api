@@ -50,5 +50,5 @@ CREATE TABLE drink_history (
   PRIMARY KEY (drink_history_id),
   CONSTRAINT fk_drink_history_user_user_id
     FOREIGN KEY (user_id)
-    REFERENCES drink (user_id)
+    REFERENCES user (user_id)
 );
