@@ -38,7 +38,7 @@ public class DrinkController {
     @ResponseStatus(HttpStatus.OK)
     public DrinkResponse getDrink(@PathVariable Integer drink_id) {
         Drink drink = drinkService.getDrink(drink_id);
-        return DrinkResponse.from (drink);
+        return DrinkResponse.from(drink);
     }
 
 }
