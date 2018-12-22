@@ -2,10 +2,9 @@ package com.depromeet.yellowcardapi.controller;
 
 import com.depromeet.yellowcardapi.dto.DrinkRequest;
 import com.depromeet.yellowcardapi.dto.DrinkResponse;
-import com.depromeet.yellowcardapi.model.Drink;
+import com.depromeet.yellowcardapi.domain.Drink;
 import com.depromeet.yellowcardapi.service.DrinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

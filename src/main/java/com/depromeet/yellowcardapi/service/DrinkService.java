@@ -1,6 +1,6 @@
 package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.model.Drink;
+import com.depromeet.yellowcardapi.domain.Drink;
 
 import java.util.List;
 

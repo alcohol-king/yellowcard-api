@@ -1,9 +1,8 @@
 package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.entity.DrinkEntity;
 import com.depromeet.yellowcardapi.exception.NoContentException;
-import com.depromeet.yellowcardapi.model.Drink;
-import com.depromeet.yellowcardapi.repository.DrinkRepository;
+import com.depromeet.yellowcardapi.domain.Drink;
+import com.depromeet.yellowcardapi.domain.DrinkRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,22 +20,18 @@ public class DrinkServiceImpl implements DrinkService {
     @Transactional
     @Override
     public Drink createDrink(Drink drink) {
-        DrinkEntity drinkEntity = drink.toDrinkEntity();
-        return Drink.from(drinkRepository.save(drinkEntity));
+        return drinkRepository.save(drink);
     }
 
     @Override
     public List<Drink> listDrink() {
         return drinkRepository.findAll().stream()
-                .map(Drink::from)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Drink getDrink(Integer drink_id) {
         return drinkRepository.findById(drink_id)
-                .map(Drink::from)
                 .orElseThrow(() -> new NoContentException("Drink not found."));
-
     }
 }

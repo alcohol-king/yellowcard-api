@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.entity;
+package com.depromeet.yellowcardapi.domain;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DrinkEntity {
+public class Drink {
     @Id
     @Column(name = "drink_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

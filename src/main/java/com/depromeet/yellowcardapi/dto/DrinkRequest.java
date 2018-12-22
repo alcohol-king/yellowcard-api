@@ -1,6 +1,6 @@
 package com.depromeet.yellowcardapi.dto;
 
-import com.depromeet.yellowcardapi.model.Drink;
+import com.depromeet.yellowcardapi.domain.Drink;
 
 public class DrinkRequest {
     private Integer drink_id;
