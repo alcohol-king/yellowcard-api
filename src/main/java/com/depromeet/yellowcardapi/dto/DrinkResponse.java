@@ -8,23 +8,23 @@ import lombok.Setter;
 @Builder
 @Getter
 public class DrinkResponse {
-    private Integer drink_id;
+    private Integer drinkId;
     private String name;
-    private String drink_type;
+    private String drinkType;
     private String description;
     private Integer proof;
     private Integer price;
-    private Integer number_of_like;
+    private Integer numberOfLike;
 
     public static DrinkResponse from(Drink drink) {
         return DrinkResponse.builder()
-                .drink_id(drink.getDrink_id())
+                .drinkId(drink.getDrinkId())
                 .name(drink.getName())
-                .drink_type(drink.getDrink_type())
+                .drinkType(drink.getDrinkType())
                 .description(drink.getDescription())
                 .proof(drink.getProof())
                 .price(drink.getPrice())
-                .number_of_like(drink.getNumber_of_like())
+                .numberOfLike(drink.getNumberOfLike())
                 .build();
     }
 }

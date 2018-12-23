@@ -7,6 +7,6 @@ import java.util.List;
 public interface DrinkService {
     Drink createDrink(Drink drink);
     List<Drink> listDrink();
-    Drink getDrink(Integer drink_id);
-    Drink addLike(Integer drink_id);
+    Drink getDrink(Integer drinkId);
+    Drink increaseLike(Integer drinkId);
 }

@@ -34,17 +34,17 @@ public class DrinkController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/drinks/{drink_id}")
+    @GetMapping("/drinks/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse getDrink(@PathVariable Integer drink_id) {
-        Drink drink = drinkService.getDrink(drink_id);
+    public DrinkResponse getDrink(@PathVariable Integer drinkId) {
+        Drink drink = drinkService.getDrink(drinkId);
         return DrinkResponse.from(drink);
     }
 
-    @GetMapping("/drinks/likes/{drink_id}")
+    @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse likeDrink(@PathVariable Integer drink_id) {
-        Drink drink = drinkService.addLike(drink_id);
+    public DrinkResponse likeDrink(@PathVariable Integer drinkId) {
+        Drink drink = drinkService.increaseLike(drinkId);
         return DrinkResponse.from(drink);
     }
 }

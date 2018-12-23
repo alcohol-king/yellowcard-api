@@ -20,7 +20,7 @@ public class DrinkServiceImpl implements DrinkService {
     @Transactional
     @Override
     public Drink createDrink(Drink drink) {
-        drink.setNumber_of_like(0);
+        drink.setNumberOfLike(0);
 
         return drinkRepository.save(drink);
     }
@@ -32,15 +32,15 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public Drink getDrink(Integer drink_id) {
-        return drinkRepository.findById(drink_id)
+    public Drink getDrink(Integer drinkId) {
+        return drinkRepository.findById(drinkId)
                 .orElseThrow(() -> new NoContentException("Drink not found."));
     }
 
     @Override
-    public Drink addLike(Integer drink_id) {
-        Drink drinkToUpdate = drinkRepository.findById(drink_id).get();
-        drinkToUpdate.setNumber_of_like(drinkToUpdate.getNumber_of_like()+1);
+    public Drink increaseLike(Integer drinkId) {
+        Drink drinkToUpdate = drinkRepository.findById(drinkId).get();
+        drinkToUpdate.setNumberOfLike(drinkToUpdate.getNumberOfLike()+1);
 
         return drinkRepository.save(drinkToUpdate);
     }

@@ -15,11 +15,11 @@ public class Drink {
     @Id
     @Column(name = "drink_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer drink_id;
+    private Integer drinkId;
     @Column
     private String name;
     @Column
-    private String drink_type;
+    private String drinkType;
     @Column
     private String description;
     @Column
@@ -27,5 +27,5 @@ public class Drink {
     @Column
     private Integer price;
     @Column
-    private Integer number_of_like;
+    private Integer numberOfLike;
 }

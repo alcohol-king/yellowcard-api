@@ -5,23 +5,23 @@ import lombok.Getter;
 
 @Getter
 public class DrinkRequest {
-    private Integer drink_id;
+    private Integer drinkId;
     private String name;
-    private String drink_type;
+    private String drinkType;
     private String description;
     private Integer proof;
     private Integer price;
-    private Integer number_of_like;
+    private Integer numberOfLike;
 
     public Drink toDrink() {
         return Drink.builder()
-                .drink_id(drink_id)
+                .drinkId(drinkId)
                 .name(name)
-                .drink_type(drink_type)
+                .drinkType(drinkType)
                 .description(description)
                 .proof(proof)
                 .price(price)
-                .number_of_like(number_of_like)
+                .numberOfLike(numberOfLike)
                 .build();
     }
 }
