@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.auth.domain.model;
+package com.depromeet.yellowcardapi.user.dto;
 
 import lombok.Getter;
 
