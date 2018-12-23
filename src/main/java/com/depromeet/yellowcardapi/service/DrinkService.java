@@ -8,4 +8,5 @@ public interface DrinkService {
     Drink createDrink(Drink drink);
     List<Drink> listDrink();
     Drink getDrink(Integer drink_id);
+    Drink addLike(Integer drink_id);
 }

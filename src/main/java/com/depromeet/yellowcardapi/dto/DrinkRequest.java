@@ -1,7 +1,9 @@
 package com.depromeet.yellowcardapi.dto;
 
 import com.depromeet.yellowcardapi.domain.Drink;
+import lombok.Getter;
 
+@Getter
 public class DrinkRequest {
     private Integer drink_id;
     private String name;

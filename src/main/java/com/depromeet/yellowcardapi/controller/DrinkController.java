@@ -41,4 +41,10 @@ public class DrinkController {
         return DrinkResponse.from(drink);
     }
 
+    @GetMapping("/drinks/likes/{drink_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DrinkResponse likeDrink(@PathVariable Integer drink_id) {
+        Drink drink = drinkService.addLike(drink_id);
+        return DrinkResponse.from(drink);
+    }
 }
