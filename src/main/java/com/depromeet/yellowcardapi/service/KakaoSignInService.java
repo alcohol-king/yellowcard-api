@@ -1,10 +1,9 @@
-package com.depromeet.yellowcardapi.user.service;
+package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.auth.service.JwtTokenProvider;
-import com.depromeet.yellowcardapi.user.domain.User;
-import com.depromeet.yellowcardapi.user.domain.UserRepository;
-import com.depromeet.yellowcardapi.user.dto.KakaoUserMeResponse;
-import com.depromeet.yellowcardapi.user.exception.KakaoAuthenticationFailedException;
+import com.depromeet.yellowcardapi.domain.User;
+import com.depromeet.yellowcardapi.domain.UserRepository;
+import com.depromeet.yellowcardapi.dto.KakaoUserMeResponse;
+import com.depromeet.yellowcardapi.exception.KakaoAuthenticationFailedException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

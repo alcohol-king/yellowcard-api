@@ -1,7 +1,7 @@
-package com.depromeet.yellowcardapi.auth.service;
+package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.auth.exception.InvalidTokenException;
-import com.depromeet.yellowcardapi.user.domain.User;
+import com.depromeet.yellowcardapi.exception.InvalidTokenException;
+import com.depromeet.yellowcardapi.domain.User;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

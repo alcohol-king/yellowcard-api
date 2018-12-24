@@ -1,7 +1,7 @@
-package com.depromeet.yellowcardapi.user.service;
+package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.user.domain.User;
-import com.depromeet.yellowcardapi.user.domain.UserRepository;
+import com.depromeet.yellowcardapi.domain.User;
+import com.depromeet.yellowcardapi.domain.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

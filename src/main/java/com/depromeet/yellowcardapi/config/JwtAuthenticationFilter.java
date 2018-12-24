@@ -1,7 +1,7 @@
-package com.depromeet.yellowcardapi.auth.config;
+package com.depromeet.yellowcardapi.config;
 
-import com.depromeet.yellowcardapi.auth.exception.InvalidTokenException;
-import com.depromeet.yellowcardapi.auth.service.JwtTokenProvider;
+import com.depromeet.yellowcardapi.exception.InvalidTokenException;
+import com.depromeet.yellowcardapi.service.JwtTokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;

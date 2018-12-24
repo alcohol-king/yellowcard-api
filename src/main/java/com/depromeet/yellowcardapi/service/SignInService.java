@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.user.service;
+package com.depromeet.yellowcardapi.service;
 
 public interface SignInService {
 

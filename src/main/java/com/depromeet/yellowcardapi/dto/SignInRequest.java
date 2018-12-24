@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.user.dto;
+package com.depromeet.yellowcardapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

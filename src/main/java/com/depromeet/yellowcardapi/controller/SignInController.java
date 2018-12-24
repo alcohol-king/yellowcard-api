@@ -1,8 +1,8 @@
-package com.depromeet.yellowcardapi.user.controller;
+package com.depromeet.yellowcardapi.controller;
 
-import com.depromeet.yellowcardapi.user.dto.SignInRequest;
-import com.depromeet.yellowcardapi.user.dto.SignInResponse;
-import com.depromeet.yellowcardapi.user.service.SignInService;
+import com.depromeet.yellowcardapi.dto.SignInRequest;
+import com.depromeet.yellowcardapi.dto.SignInResponse;
+import com.depromeet.yellowcardapi.service.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

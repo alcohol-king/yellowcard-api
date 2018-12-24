@@ -1,6 +1,6 @@
-package com.depromeet.yellowcardapi.auth.config;
+package com.depromeet.yellowcardapi.config;
 
-import com.depromeet.yellowcardapi.auth.service.JwtTokenProvider;
+import com.depromeet.yellowcardapi.service.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

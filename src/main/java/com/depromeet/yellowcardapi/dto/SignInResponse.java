@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.user.dto;
+package com.depromeet.yellowcardapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
