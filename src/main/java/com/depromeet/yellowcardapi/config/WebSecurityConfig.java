@@ -30,12 +30,6 @@ public class WebSecurityConfig {
     public class DevWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
-        public void configure(WebSecurity web) {
-            web.ignoring().antMatchers("/kakaologin?**", "/v2/api-docs", "/configuration/ui",
-                    "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
-        }
-
-        @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
                     .anyRequest().permitAll()
@@ -48,6 +42,12 @@ public class WebSecurityConfig {
     @Configuration
     @Profile("production")
     public class ProductionWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        public void configure(WebSecurity web) {
+            web.ignoring().antMatchers("/kakaologin?**", "/v2/api-docs", "/configuration/ui",
+                    "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
