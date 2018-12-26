@@ -29,7 +29,7 @@ public class DrinkResponse {
         return DrinkResponse.builder()
                 .drinkId(drink.getDrinkId())
                 .name(drink.getName())
-                .drinkType(drink.getDrinkType())
+                .drinkType(drink.getDrinkType().name())
                 .description(drink.getDescription())
                 .proof(drink.getProof())
                 .price(drink.getPrice())
