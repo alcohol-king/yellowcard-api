@@ -19,13 +19,13 @@ CREATE TABLE drink (
   PRIMARY KEY (drink_id)
 );
 
-CREATE TABLE user_drink (
-  user_drink_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE drink_card (
+  drink_card_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
   level TINYINT NOT NULL DEFAULT 1,
-  PRIMARY KEY (user_drink_id),
-  CONSTRAINT fk_user_drink_user_user_Id
+  PRIMARY KEY (drink_card_id),
+  CONSTRAINT fk_drink_card_user_user_Id
     FOREIGN KEY (user_id)
     REFERENCES user (user_id),
 );
