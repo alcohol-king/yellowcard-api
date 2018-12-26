@@ -25,15 +25,15 @@ public class WebSecurityConfig {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/kakaologin?**", "/v2/api-docs", "/configuration/ui",
-                "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
-    }
-
     @Configuration
     @Profile({ "dev", "default" })
     public class DevWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        public void configure(WebSecurity web) {
+            web.ignoring().antMatchers("/kakaologin?**", "/v2/api-docs", "/configuration/ui",
+                    "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
