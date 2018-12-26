@@ -37,7 +37,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getId()))
                 .setIssuedAt(new Date())
-                .setExpiration(expireAt)
+                .setExpiration(null)
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
     }
