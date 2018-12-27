@@ -49,8 +49,6 @@ CREATE TABLE drink_history (
   soju TINYINT NOT NULL DEFAULT 0,
   wine TINYINT NOT NULL DEFAULT 0,
   makgeolli TINYINT NOT NULL DEFAULT 0,
-  drink_type VARCHAR(20) NOT NULL,
-  drink_capacity TINYINT NOT NULL DEFAULT 0,
   drunk_at DATE NOT NULL,
   PRIMARY KEY (drink_history_id),
   CONSTRAINT fk_drink_history_user_user_id
