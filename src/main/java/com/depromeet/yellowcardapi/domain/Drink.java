@@ -12,23 +12,34 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Drink {
+
     @Id
-    @Column(name = "drink_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer drinkId;
+    @Column(name = "drink_id")
+    private Long id;
+
     @Column
     private String name;
+
     @Column
     @Enumerated(value = EnumType.STRING)
     private DrinkType drinkType;
+
     @Column
     private String description;
+
     @Column
     private Integer proof;
+
     @Column
     private Integer price;
+
     @Column
-    private Integer numberOfLike;
+    private int numberOfLike;
+
+    public void like() {
+        numberOfLike++;
+    }
 
     public static class DrinkBuilder {
         public DrinkBuilder drinkType(DrinkType drinkType) {
