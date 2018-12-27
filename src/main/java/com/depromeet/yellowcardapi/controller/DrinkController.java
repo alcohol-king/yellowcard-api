@@ -1,5 +1,6 @@
 package com.depromeet.yellowcardapi.controller;
 
+import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.dto.DrinkRequest;
 import com.depromeet.yellowcardapi.dto.DrinkResponse;
 import com.depromeet.yellowcardapi.domain.Drink;
@@ -36,15 +37,15 @@ public class DrinkController {
 
     @GetMapping("/drinks/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse getDrink(@PathVariable Integer drinkId) {
+    public DrinkResponse getDrink(@PathVariable Long drinkId) {
         Drink drink = drinkService.getDrink(drinkId);
         return DrinkResponse.from(drink);
     }
 
     @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse likeDrink(@PathVariable Integer drinkId) {
-        Drink drink = drinkService.increaseLike(drinkId);
+    public DrinkResponse likeDrink(@UserId Long userId, @PathVariable Long drinkId) {
+        Drink drink = drinkService.likeDrink(userId, drinkId);
         return DrinkResponse.from(drink);
     }
 }
