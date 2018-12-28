@@ -11,7 +11,7 @@ import lombok.Setter;
 public class DrinkResponse {
 
     @JsonProperty(value = "drink_id")
-    private Integer drinkId;
+    private Long drinkId;
 
     private String name;
 
@@ -27,7 +27,7 @@ public class DrinkResponse {
 
     public static DrinkResponse from(Drink drink) {
         return DrinkResponse.builder()
-                .drinkId(drink.getDrinkId())
+                .drinkId(drink.getId())
                 .name(drink.getName())
                 .drinkType(drink.getDrinkType().name())
                 .description(drink.getDescription())
