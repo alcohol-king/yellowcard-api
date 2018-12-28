@@ -1,6 +1,7 @@
 package com.depromeet.yellowcardapi.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 public class History {
 
     @Id
@@ -19,7 +21,7 @@ public class History {
     @Column(name = "drink_history_id")
     private Long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", updatable= false)
     private Long userId;
 
     @Column

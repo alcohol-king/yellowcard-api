@@ -4,6 +4,7 @@ import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.domain.History;
 import com.depromeet.yellowcardapi.dto.HistoryRequest;
 import com.depromeet.yellowcardapi.dto.HistoryResponse;
+import com.depromeet.yellowcardapi.exception.HistoryCRUDException;
 import com.depromeet.yellowcardapi.service.HistoryService;
 import com.depromeet.yellowcardapi.utils.LocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,6 +44,24 @@ public class HistoryController {
         return HistoryResponse.from(history);
     }
 
+    @PutMapping("/histories/{historyId}")
+    @ResponseStatus(HttpStatus.OK)
+    public HistoryResponse updateHistory(@RequestBody HistoryRequest historyRequest, @PathVariable Long historyId) {
+        History history = historyService.updateHistory(historyId, historyRequest.toHistory());
+        return HistoryResponse.from(history);
+    }
+
+    @DeleteMapping("/histories/{historyId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHistory(@PathVariable Long historyId) {
+        try {
+            historyService.deleteHistory(historyId);
+        } catch (HistoryCRUDException e) {
+            throw e;
+        }
+        return "음주 이력 삭제에 성공했습니다.";
+    }
+
     @GetMapping("/histories")
     @ResponseStatus(HttpStatus.OK)
     public List<HistoryResponse> listHistory() {
@@ -57,6 +76,22 @@ public class HistoryController {
     @ResponseStatus(HttpStatus.OK)
     public List<HistoryResponse> listHistoryByUserId(@UserId Long userId) {
         return historyService.listHistoryByUserId(userId).stream()
+                .map(HistoryResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/histories/me")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "start_date", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "end_date", required = true, dataType = "string", paramType = "query")
+    })
+    public List<HistoryResponse> listHistoryByDate(@RequestBody Map<Object, Object> params) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse((String) params.get("start_date"), formatter);
+        LocalDate endDate   = LocalDate.parse((String) params.get("end_date"),   formatter);
+
+        return historyService.listHistoryByDate(startDate, endDate).stream()
                 .map(HistoryResponse::from)
                 .collect(Collectors.toList());
     }

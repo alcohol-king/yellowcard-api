@@ -5,10 +5,9 @@ import com.depromeet.yellowcardapi.domain.HistoryRepository;
 import com.depromeet.yellowcardapi.domain.User;
 import com.depromeet.yellowcardapi.domain.UserRepository;
 import com.depromeet.yellowcardapi.exception.HistoryNotFoundException;
-import com.depromeet.yellowcardapi.exception.HistoryNotSavedException;
+import com.depromeet.yellowcardapi.exception.HistoryCRUDException;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,7 +31,7 @@ public class HistoryServiceImpl implements HistoryService {
         if (user.addHistory(history)) {
             return historyRepository.save(history);
         } else {
-            throw new HistoryNotSavedException("사용자 도메인에 음주 이력을 추가하던 중 오류가 발생했습니다.");
+            throw new HistoryCRUDException("사용자 도메인에 음주 이력을 추가하던 중에 오류가 발생했습니다.");
         }
     }
 
@@ -40,6 +39,26 @@ public class HistoryServiceImpl implements HistoryService {
     public History getHistory(Long historyId) {
         return historyRepository.findById(historyId)
                 .orElseThrow(HistoryNotFoundException::new);
+    }
+
+    @Override
+    public History updateHistory(Long historyId, History history) {
+        historyRepository.findById(historyId)
+                .orElseThrow(HistoryNotFoundException::new);
+
+        history.setId(historyId);
+        return historyRepository.save(history);
+    }
+
+    @Override
+    public Boolean deleteHistory(Long historyId) {
+        History history = historyRepository.findById(historyId)
+                .orElseThrow(HistoryNotFoundException::new);
+
+        System.out.println("하하: " + history.toString());
+
+        historyRepository.delete(history);
+        return true;
     }
 
     @Override

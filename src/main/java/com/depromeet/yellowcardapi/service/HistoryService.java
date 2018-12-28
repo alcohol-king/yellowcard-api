@@ -10,9 +10,11 @@ public interface HistoryService {
 
     History createHistory(Long userId, History history);
     History getHistory(Long historyId);
+    History updateHistory(Long historyId, History toHistory);
+    Boolean deleteHistory(Long historyId);
 
     List<History> listHistory();
     List<History> listHistoryByUserId(Long userId);
-    List<History>listHistoryByDate(LocalDate startDate, LocalDate endDate);
+    List<History> listHistoryByDate(LocalDate startDate, LocalDate endDate);
 
 }
