@@ -45,8 +45,10 @@ CREATE TABLE drink_like (
 CREATE TABLE drink_history (
   drink_history_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
-  drink_type VARCHAR(20) NOT NULL,
-  drink_capacity TINYINT NOT NULL DEFAULT 0,
+  beer TINYINT NOT NULL DEFAULT 0,
+  soju TINYINT NOT NULL DEFAULT 0,
+  wine TINYINT NOT NULL DEFAULT 0,
+  makgeolli TINYINT NOT NULL DEFAULT 0,
   drunk_at DATE NOT NULL,
   PRIMARY KEY (drink_history_id),
   CONSTRAINT fk_drink_history_user_user_id

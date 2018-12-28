@@ -5,6 +5,7 @@ import com.depromeet.yellowcardapi.domain.User;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.DefaultClaims;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
 @Component
 public class JwtTokenProvider {
 
-    public static final String HEADER_AUTHORIZATION = "Authorization";
+    public static final String KEY_TOKEN = "Authorization";
     public static final String PREFIX_TOKEN = "Bearer";
 
     private static final String SECRET = "secret";
@@ -28,14 +29,14 @@ public class JwtTokenProvider {
     private static final long EXPIRATION_IN_MILLISECONDS = 3600000L;
 
     private static final Pattern PREFIX_BEARER_PATTERN =
-            Pattern.compile("^Bearer *([^ ]+) *$", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("^" + PREFIX_TOKEN + " *([^ ]+) *$", Pattern.CASE_INSENSITIVE);
 
     public String generateToken(User user) {
         Date now = new Date();
         Date expireAt = new Date(now.getTime() + EXPIRATION_IN_MILLISECONDS);
 
         return Jwts.builder()
-                .setSubject(String.valueOf(user.getId()))
+                .claim("userId", user.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(null)
                 .signWith(SignatureAlgorithm.HS256, SECRET)
@@ -43,7 +44,7 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) throws InvalidTokenException {
-        String header = request.getHeader(HEADER_AUTHORIZATION);
+        String header = request.getHeader(KEY_TOKEN);
 
         if (StringUtils.isBlank(header)) {
             throw new InvalidTokenException();
@@ -70,14 +71,14 @@ public class JwtTokenProvider {
         String token = resolveToken(request);
         validateToken(token);
 
-        String userId = Jwts.parser()
+        return new UsernamePasswordAuthenticationToken(getUserId(token), "", Collections.emptyList());
+    }
+
+    public Long getUserId(String token) {
+        return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody()
-                .getSubject();
-
-        return userId != null ?
-                new UsernamePasswordAuthenticationToken(userId, "", Collections.emptyList()) :
-                null;
+                .get("userId", Long.class);
     }
 }
