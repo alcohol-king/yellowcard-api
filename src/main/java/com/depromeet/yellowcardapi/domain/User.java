@@ -24,7 +24,10 @@ public class User {
     @Column(length = 20)
     private String name;
 
+    @Lob
     private String profileImageUrl;
+
+    @Lob
     private String thumbnailImageUrl;
 
     @Column(length = 100)

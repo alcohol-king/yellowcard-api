@@ -29,7 +29,7 @@ public class Drink {
     private String description;
 
     @Column
-    private Integer proof;
+    private Double proof;
 
     @Column
     private Integer price;
