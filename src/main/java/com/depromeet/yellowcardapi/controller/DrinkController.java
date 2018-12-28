@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class DrinkController {
+
     private final DrinkService drinkService;
 
     @PostMapping("/drinks")
@@ -45,6 +46,7 @@ public class DrinkController {
     @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
     public DrinkResponse likeDrink(@UserId Long userId, @PathVariable Long drinkId) {
+        System.out.println("id: " + userId);
         Drink drink = drinkService.likeDrink(userId, drinkId);
         return DrinkResponse.from(drink);
     }

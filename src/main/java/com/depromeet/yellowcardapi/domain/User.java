@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,9 +39,22 @@ public class User {
     )
     private Set<Drink> likedDrinks = new HashSet<>();
 
+    @OneToMany
+//    @JoinTable(
+//            name = "drink_history",
+//            joinColumns = @JoinColumn(name = "drink_history_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+    @JoinColumn(name = "user_id")
+    private Set<History> drinkHistories = new HashSet<>();
+
     @Builder
     public User(Long externalId) {
         this.externalId = externalId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public boolean likeDrink(Drink drink) {
@@ -55,6 +69,25 @@ public class User {
     private boolean alreadyLikedDrink(Long drinkId) {
         for (Drink drink : likedDrinks) {
             if (drink.getId().compareTo(drinkId) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addHistory(History history) {
+        if (historyIsExists(history.getUserId(), history.getDrunkAt())) {
+            return false;
+        }
+
+        drinkHistories.add(history);
+        return true;
+    }
+
+    private boolean historyIsExists(Long userId, LocalDate drunkAt) {
+        for (History history : drinkHistories) {
+            if (history.getUserId().compareTo(userId) == 0
+                    && history.getDrunkAt().compareTo(drunkAt) == 0) {
                 return true;
             }
         }
