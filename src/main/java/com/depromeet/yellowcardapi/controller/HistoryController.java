@@ -47,7 +47,7 @@ public class HistoryController {
     @ResponseStatus(HttpStatus.OK)
     public HistoryResponse getHistory(@PathVariable Long historyId) {
         History history = historyService.getHistory(historyId);
-        return HistoryResponse.from(history);
+        return HistoryResponse.fromContainsMost(history);
     }
 
     @PutMapping("/histories/{historyId}")
@@ -71,10 +71,8 @@ public class HistoryController {
     @GetMapping("/histories")
     @ResponseStatus(HttpStatus.OK)
     public List<HistoryResponse> listHistory() {
-        List<String> envs = Arrays.asList(environment.getActiveProfiles());
-
         return historyService.listHistory().stream()
-                .map(HistoryResponse::from)
+                .map(HistoryResponse::fromContainsMost)
                 .collect(Collectors.toList());
     }
 
@@ -82,7 +80,7 @@ public class HistoryController {
     @ResponseStatus(HttpStatus.OK)
     public List<HistoryResponse> listHistoryByUserId(@UserId Long userId) {
         return historyService.listHistoryByUserId(userId).stream()
-                .map(HistoryResponse::from)
+                .map(HistoryResponse::fromContainsMost)
                 .collect(Collectors.toList());
     }
 
@@ -97,7 +95,7 @@ public class HistoryController {
         LocalDate endDate   = LocalDate.parse((String) params.get("end_date"),   formatter);
 
         return historyService.listHistoryByDate(startDate, endDate).stream()
-                .map(HistoryResponse::from)
+                .map(HistoryResponse::fromContainsMost)
                 .collect(Collectors.toList());
     }
 }

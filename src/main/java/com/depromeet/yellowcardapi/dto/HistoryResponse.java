@@ -9,8 +9,10 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.AbstractMap;
+import java.util.HashMap;
 
 @Builder
 @Getter
@@ -26,12 +28,11 @@ public class HistoryResponse {
     private Integer soju;
     private Integer wine;
     private Integer makgeolli;
+    private HashMap<String, String> most;
 
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonProperty(value = "drunk_at")
     private LocalDate drunkAt;
-
-    private AbstractMap.SimpleEntry<String, Integer> most;
 
     public static HistoryResponse from(History history) {
         return HistoryResponse.builder()
@@ -45,5 +46,17 @@ public class HistoryResponse {
                 .build();
     }
 
+    public static HistoryResponse fromContainsMost(History history) {
+        return HistoryResponse.builder()
+                .historyId(history.getId())
+                .userId(history.getUserId())
+                .most(history.getMost())
+                .beer(history.getBeer())
+                .soju(history.getSoju())
+                .wine(history.getWine())
+                .makgeolli(history.getMakgeolli())
+                .drunkAt(history.getDrunkAt())
+                .build();
+    }
 
 }
