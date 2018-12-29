@@ -1,6 +1,8 @@
 package com.depromeet.yellowcardapi.dto;
 
+import com.depromeet.yellowcardapi.domain.DrinkType;
 import com.depromeet.yellowcardapi.domain.History;
+import com.depromeet.yellowcardapi.utils.HelperFunctions;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -8,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.AbstractMap;
 
 @Builder
 @Getter
@@ -28,6 +31,8 @@ public class HistoryResponse {
     @JsonProperty(value = "drunk_at")
     private LocalDate drunkAt;
 
+    private AbstractMap.SimpleEntry<String, Integer> most;
+
     public static HistoryResponse from(History history) {
         return HistoryResponse.builder()
                 .historyId(history.getId())
@@ -39,5 +44,6 @@ public class HistoryResponse {
                 .drunkAt(history.getDrunkAt())
                 .build();
     }
+
 
 }

@@ -41,5 +41,8 @@ dependencies {
 	implementation ('com.fasterxml.jackson.module:jackson-module-parameter-names')
 	implementation ('com.fasterxml.jackson.datatype:jackson-module-parameter-names')
 	implementation ('com.fasterxml.jackson.datatype:jackson-datatype-jdk8')
+	compile ("javax.json:javax.json-api:1.0.4")
+	compile ("org.glassfish:javax.json-api:1.0.4")
 	compile ("org.mariadb.jdbc:mariadb-java-client")
+
 }
