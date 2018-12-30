@@ -28,7 +28,7 @@ public class User {
     private String thumbnailImageUrl;
 
     @Column(length = 100)
-    private String description;
+    private String statusMessage;
 
     @ManyToMany
     @JoinTable(
@@ -39,8 +39,13 @@ public class User {
     private Set<Drink> likedDrinks = new HashSet<>();
 
     @Builder
-    public User(Long externalId) {
+    public User(Long externalId, String name, String profileImageUrl,
+                String thumbnailImageUrl, String statusMessage) {
         this.externalId = externalId;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.statusMessage = statusMessage;
     }
 
     public boolean likeDrink(Drink drink) {
