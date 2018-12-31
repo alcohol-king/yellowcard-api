@@ -20,10 +20,10 @@ public class HistoryRequest {
     @JsonProperty(value = "user_id")
     private Long userId;
 
-    private Integer beer;
-    private Integer soju;
-    private Integer wine;
-    private Integer makgeolli;
+    private Integer beer = 0;
+    private Integer soju = 0;
+    private Integer wine = 0;
+    private Integer makgeolli = 0;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonProperty(value = "drunk_at")

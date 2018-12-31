@@ -22,17 +22,14 @@ public class HistoryServiceImpl implements HistoryService {
     private final UserRepository userRepository;
 
     @Override
-    public History createHistory(Long userId, History history) {
+    public History createHistory(Long userId, History history) throws HistoryCRUDException {
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
         history.setUserId(userId);
+        Long result = user.addHistory(history);
 
-        if (user.addHistory(history)) {
-            return historyRepository.save(history);
-        } else {
-            throw new HistoryCRUDException("사용자 도메인에 음주 이력을 추가하던 중에 오류가 발생했습니다.");
-        }
+        return result == -1 ? historyRepository.save(history) : updateHistory(result, history);
     }
 
     @Override

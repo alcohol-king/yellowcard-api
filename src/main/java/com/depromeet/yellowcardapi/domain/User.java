@@ -40,11 +40,6 @@ public class User {
     private Set<Drink> likedDrinks = new HashSet<>();
 
     @OneToMany
-//    @JoinTable(
-//            name = "drink_history",
-//            joinColumns = @JoinColumn(name = "drink_history_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
     @JoinColumn(name = "user_id")
     private Set<History> drinkHistories = new HashSet<>();
 
@@ -75,22 +70,22 @@ public class User {
         return false;
     }
 
-    public boolean addHistory(History history) {
-        if (historyIsExists(history.getUserId(), history.getDrunkAt())) {
-            return false;
-        }
+    public Long addHistory(History history) {
+        Long result = historyIsExists(history.getUserId(), history.getDrunkAt());
 
-        drinkHistories.add(history);
-        return true;
+        if (result != -1) {
+            drinkHistories.add(history);
+        }
+        return result;
     }
 
-    private boolean historyIsExists(Long userId, LocalDate drunkAt) {
+    private Long historyIsExists(Long userId, LocalDate drunkAt) {
         for (History history : drinkHistories) {
             if (history.getUserId().compareTo(userId) == 0
                     && history.getDrunkAt().compareTo(drunkAt) == 0) {
-                return true;
+                return history.getId();
             }
         }
-        return false;
+        return (long) -1;
     }
 }
