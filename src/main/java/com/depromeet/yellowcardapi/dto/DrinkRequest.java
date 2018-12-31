@@ -16,7 +16,7 @@ public class DrinkRequest {
     private String drinkType;
 
     private String description;
-    private Integer proof;
+    private Double proof;
     private Integer price;
 
     public Drink toDrink() {

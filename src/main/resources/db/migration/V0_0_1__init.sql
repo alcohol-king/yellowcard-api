@@ -13,9 +13,9 @@ CREATE TABLE drink (
   name VARCHAR(20) NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
   description VARCHAR(200) NULL,
-  proof TINYINT NULL,
+  proof DOUBLE NULL,
   price INT NULL,
-  number_of_like INT NOT NULL DEFAULT 0
+  number_of_like INT NOT NULL DEFAULT 0,
   PRIMARY KEY (drink_id)
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE drink_card (
   drink_card_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
-  level TINYINT NOT NULL DEFAULT 1,
+  level INT NOT NULL DEFAULT 1,
   PRIMARY KEY (drink_card_id),
   CONSTRAINT fk_drink_card_user_user_Id
     FOREIGN KEY (user_id)
@@ -45,10 +45,10 @@ CREATE TABLE drink_like (
 CREATE TABLE drink_history (
   drink_history_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
-  beer TINYINT NOT NULL DEFAULT 0,
-  soju TINYINT NOT NULL DEFAULT 0,
-  wine TINYINT NOT NULL DEFAULT 0,
-  makgeolli TINYINT NOT NULL DEFAULT 0,
+  beer INT NOT NULL DEFAULT 0,
+  soju INT NOT NULL DEFAULT 0,
+  wine INT NOT NULL DEFAULT 0,
+  makgeolli INT NOT NULL DEFAULT 0,
   drunk_at DATE NOT NULL,
   PRIMARY KEY (drink_history_id),
   CONSTRAINT fk_drink_history_user_user_id
