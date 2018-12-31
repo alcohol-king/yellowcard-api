@@ -19,7 +19,7 @@ public class DrinkResponse {
     private String drinkType;
 
     private String description;
-    private Integer proof;
+    private Double proof;
     private Integer price;
 
     @JsonProperty(value = "number_of_like")

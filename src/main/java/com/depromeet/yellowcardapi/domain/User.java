@@ -25,11 +25,14 @@ public class User {
     @Column(length = 20)
     private String name;
 
+    @Lob
     private String profileImageUrl;
+
+    @Lob
     private String thumbnailImageUrl;
 
     @Column(length = 100)
-    private String description;
+    private String statusMessage;
 
     @ManyToMany
     @JoinTable(
@@ -44,8 +47,13 @@ public class User {
     private Set<History> drinkHistories = new HashSet<>();
 
     @Builder
-    public User(Long externalId) {
+    public User(Long externalId, String name, String profileImageUrl,
+                String thumbnailImageUrl, String statusMessage) {
         this.externalId = externalId;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.statusMessage = statusMessage;
     }
 
     public void setId(Long id) {
