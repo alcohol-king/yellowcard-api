@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +19,6 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "external_id")
     private Long externalId;
 
     @Column(length = 20)
@@ -26,10 +28,41 @@ public class User {
     private String thumbnailImageUrl;
 
     @Column(length = 100)
-    private String description;
+    private String statusMessage;
+
+    @ManyToMany
+    @JoinTable(
+            name = "drink_like",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "drink_id")
+    )
+    private Set<Drink> likedDrinks = new HashSet<>();
 
     @Builder
-    public User(Long externalId) {
+    public User(Long externalId, String name, String profileImageUrl,
+                String thumbnailImageUrl, String statusMessage) {
         this.externalId = externalId;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
+        this.thumbnailImageUrl = thumbnailImageUrl;
+        this.statusMessage = statusMessage;
+    }
+
+    public boolean likeDrink(Drink drink) {
+        if (alreadyLikedDrink(drink.getId())) {
+            return false;
+        }
+
+        likedDrinks.add(drink);
+        return true;
+    }
+
+    private boolean alreadyLikedDrink(Long drinkId) {
+        for (Drink drink : likedDrinks) {
+            if (drink.getId().compareTo(drinkId) == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

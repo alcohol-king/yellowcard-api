@@ -7,7 +7,9 @@ import lombok.Getter;
 @Getter
 public class DrinkRequest {
 
-    private Integer drinkId;
+    @JsonProperty(value = "drink_id")
+    private Long drinkId;
+
     private String name;
 
     @JsonProperty(value = "drink_type")
