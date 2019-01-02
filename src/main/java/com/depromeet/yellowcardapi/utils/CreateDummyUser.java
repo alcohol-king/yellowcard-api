@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import static java.lang.Long.valueOf;
 
 @Component
-@Profile({ "dev", "default" })
+@Profile("dev")
 public class CreateDummyUser implements ApplicationRunner {
 
     @Autowired
