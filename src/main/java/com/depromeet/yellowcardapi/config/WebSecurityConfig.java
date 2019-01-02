@@ -26,7 +26,7 @@ public class WebSecurityConfig {
     private JwtTokenProvider tokenProvider;
 
     @Configuration
-    @Profile({ "dev", "default" })
+    @Profile("dev")
     public class DevWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
