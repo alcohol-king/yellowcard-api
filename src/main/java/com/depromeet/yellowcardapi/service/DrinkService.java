@@ -5,8 +5,10 @@ import com.depromeet.yellowcardapi.domain.Drink;
 import java.util.List;
 
 public interface DrinkService {
+
     Drink createDrink(Drink drink);
     List<Drink> listDrink();
     Drink getDrink(Long drinkId);
     Drink likeDrink(Long userId, Long drinkId);
+
 }

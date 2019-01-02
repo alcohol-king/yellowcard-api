@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class DrinkController {
+
     private final DrinkService drinkService;
 
     @PostMapping("/drinks")
