@@ -19,7 +19,7 @@ import java.util.List;
 public class SwaggerConfig {
 
     private static final String DEFAULT_TOKEN =
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTQ1ODQxNjM1fQ.VGtvmsfPBvei8GNZmH-UM3OaZrJtTmpg31t0gd2nAOM";
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU0NjAyNjA5OH0.SqIZvBdKAdplcoi2Ejj6yuzwlUym1IzgBMsjiLwzvPQ";
 
     @Bean
     public Docket api() {

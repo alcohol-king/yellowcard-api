@@ -2,7 +2,7 @@ package com.depromeet.yellowcardapi.service;
 
 import com.depromeet.yellowcardapi.domain.User;
 import com.depromeet.yellowcardapi.domain.UserRepository;
-import com.depromeet.yellowcardapi.exception.NoContentException;
+import com.depromeet.yellowcardapi.exception.DrinkNotFoundException;
 import com.depromeet.yellowcardapi.domain.Drink;
 import com.depromeet.yellowcardapi.domain.DrinkRepository;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
@@ -37,13 +37,13 @@ public class DrinkServiceImpl implements DrinkService {
     @Override
     public Drink getDrink(Long drinkId) {
         return drinkRepository.findById(drinkId)
-                .orElseThrow(() -> new NoContentException("Drink not found."));
+                .orElseThrow(DrinkNotFoundException::new);
     }
 
     @Override
     public Drink likeDrink(Long userId, Long drinkId) {
         Drink drink = drinkRepository.findById(drinkId)
-                .orElseThrow(() -> new NoContentException("Drink not found."));
+                .orElseThrow(DrinkNotFoundException::new);
 
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
@@ -55,4 +55,5 @@ public class DrinkServiceImpl implements DrinkService {
         userRepository.save(user);
         return drinkRepository.save(drink);
     }
+
 }
