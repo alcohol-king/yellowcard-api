@@ -52,8 +52,6 @@ public class HistoryServiceImpl implements HistoryService {
         History history = historyRepository.findById(historyId)
                 .orElseThrow(HistoryNotFoundException::new);
 
-        System.out.println("하하: " + history.toString());
-
         historyRepository.delete(history);
         return true;
     }

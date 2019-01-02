@@ -46,7 +46,6 @@ public class DrinkController {
     @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
     public DrinkResponse likeDrink(@UserId Long userId, @PathVariable Long drinkId) {
-        System.out.println("id: " + userId);
         Drink drink = drinkService.likeDrink(userId, drinkId);
         return DrinkResponse.from(drink);
     }
