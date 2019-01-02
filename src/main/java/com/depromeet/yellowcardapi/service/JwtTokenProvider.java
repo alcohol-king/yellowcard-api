@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -23,13 +24,14 @@ public class JwtTokenProvider {
     public static final String KEY_TOKEN = "Authorization";
     public static final String PREFIX_TOKEN = "Bearer";
 
-    private static final String SECRET = "secret";
-
     // an hour
     private static final long EXPIRATION_IN_MILLISECONDS = 3600000L;
 
     private static final Pattern PREFIX_BEARER_PATTERN =
             Pattern.compile("^" + PREFIX_TOKEN + " *([^ ]+) *$", Pattern.CASE_INSENSITIVE);
+
+    @Value("${jwt.secret}")
+    private String secret;
 
     public String generateToken(User user) {
         Date now = new Date();
@@ -39,7 +41,7 @@ public class JwtTokenProvider {
                 .claim("userId", user.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(null)
-                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
@@ -60,7 +62,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException();
@@ -76,7 +78,7 @@ public class JwtTokenProvider {
 
     public Long getUserId(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET)
+                .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody()
                 .get("userId", Long.class);
