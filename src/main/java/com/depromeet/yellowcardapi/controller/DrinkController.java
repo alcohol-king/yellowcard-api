@@ -8,6 +8,7 @@ import com.depromeet.yellowcardapi.service.DrinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class DrinkController {
 
     @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse likeDrink(@UserId Long userId, @PathVariable Long drinkId) {
+    public DrinkResponse likeDrink(@ApiIgnore @UserId Long userId, @PathVariable Long drinkId) {
         Drink drink = drinkService.likeDrink(userId, drinkId);
         return DrinkResponse.from(drink);
     }

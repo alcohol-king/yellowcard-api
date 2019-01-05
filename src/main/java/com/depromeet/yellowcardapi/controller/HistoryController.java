@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +36,7 @@ public class HistoryController {
 
     @PostMapping("/histories")
     @ResponseStatus(HttpStatus.CREATED)
-    public HistoryResponse createHistory(@UserId Long userId, @RequestBody HistoryRequest historyRequest) {
+    public HistoryResponse createHistory(@ApiIgnore @UserId Long userId, @RequestBody HistoryRequest historyRequest) {
         History history = historyService.createHistory(userId, historyRequest.toHistory());
         return HistoryResponse.from(history);
     }
@@ -75,7 +76,7 @@ public class HistoryController {
 
     @GetMapping("/histories/me")
     @ResponseStatus(HttpStatus.OK)
-    public List<HistoryResponse> listHistoryByUserId(@UserId Long userId) {
+    public List<HistoryResponse> listHistoryByUserId(@ApiIgnore @UserId Long userId) {
         return historyService.listHistoryByUserId(userId).stream()
                 .map(HistoryResponse::fromContainsMost)
                 .collect(Collectors.toList());
