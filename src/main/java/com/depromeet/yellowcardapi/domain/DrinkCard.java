@@ -20,6 +20,7 @@ public class DrinkCard {
     private User user;
 
     @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.STRING)
     private DrinkType drinkType;
 
     @Column(length = 20, nullable = false)
