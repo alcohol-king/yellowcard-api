@@ -12,22 +12,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
-@RequiredArgsConstructor
-public class UserIdHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
-    private final JwtTokenProvider tokenProvider;
+public abstract class UserIdHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(UserId.class);
-    }
-
-    @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-
-        String token = tokenProvider.resolveToken(webRequest.getNativeRequest(HttpServletRequest.class));
-        return tokenProvider.getUserId(token);
     }
 }
