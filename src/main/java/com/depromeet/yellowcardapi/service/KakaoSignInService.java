@@ -3,12 +3,14 @@ package com.depromeet.yellowcardapi.service;
 import com.depromeet.yellowcardapi.domain.User;
 import com.depromeet.yellowcardapi.domain.UserRepository;
 import com.depromeet.yellowcardapi.dto.KakaoUserMeResponse;
+import com.depromeet.yellowcardapi.dto.SignInRequest;
 import com.depromeet.yellowcardapi.exception.KakaoAuthenticationFailedException;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,10 +35,10 @@ public class KakaoSignInService implements SignInService {
     private ObjectMapper objectMapper;
 
     @Override
-    public String signIn(String accessToken) {
+    public String signIn(SignInRequest request) {
         KakaoUserMeResponse userMeResponse = new KakaoUserMeResponse();
         try {
-            userMeResponse = authenticate(accessToken);
+            userMeResponse = authenticate(request.getAccessToken());
         } catch (IOException e) {
             e.printStackTrace();
             throw new KakaoAuthenticationFailedException();
@@ -44,7 +46,16 @@ public class KakaoSignInService implements SignInService {
 
         Long externalId = userMeResponse.getId();
         User user = userRepository.findByExternalId(externalId)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseGet(() -> {
+                    if (StringUtils.isBlank(request.getUserName())) {
+                        throw new UserNotFoundException();
+                    }
+                    return userRepository.save(User.builder()
+                            .externalId(externalId)
+                            .name(request.getUserName())
+                            .statusMessage(request.getStatusMessage())
+                            .build());
+                });
 
         return tokenProvider.generateToken(user);
     }
