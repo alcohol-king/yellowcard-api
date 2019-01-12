@@ -4,6 +4,7 @@ import com.depromeet.yellowcardapi.domain.User;
 import com.depromeet.yellowcardapi.domain.UserRepository;
 import com.depromeet.yellowcardapi.dto.KakaoUserMeResponse;
 import com.depromeet.yellowcardapi.exception.KakaoAuthenticationFailedException;
+import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,14 +43,8 @@ public class KakaoSignInService implements SignInService {
         }
 
         Long externalId = userMeResponse.getId();
-        User user = userRepository.findByExternalId(userMeResponse.getId())
-                .orElseGet(() -> {
-                    User u = User.builder()
-                            .externalId(externalId)
-                            .build();
-                    userRepository.save(u);
-                    return u;
-                });
+        User user = userRepository.findByExternalId(externalId)
+                .orElseThrow(UserNotFoundException::new);
 
         return tokenProvider.generateToken(user);
     }
