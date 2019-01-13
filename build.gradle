@@ -27,8 +27,17 @@ repositories {
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.security:spring-security-web')
+    implementation('org.springframework.security:spring-security-config')
+    implementation('io.springfox:springfox-swagger2:2.6.1')
+    implementation('io.springfox:springfox-swagger-ui:2.6.1')
+	implementation('org.flywaydb:flyway-core')
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
+    implementation('org.apache.commons:commons-lang3:3.8.1')
+    implementation('com.squareup.okhttp3:okhttp:3.12.0')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	runtimeOnly('com.h2database:h2')
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	compile ("org.mariadb.jdbc:mariadb-java-client")
 }

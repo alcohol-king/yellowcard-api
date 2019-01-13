@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS user;
 CREATE TABLE user (
   user_id BIGINT UNSIGNED NOT NULL,
   external_id BIGINT UNSIGNED NOT NULL,
@@ -8,6 +9,7 @@ CREATE TABLE user (
   PRIMARY KEY (user_id)
 );
 
+DROP TABLE IF EXISTS drink;
 CREATE TABLE drink (
   drink_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
@@ -15,21 +17,24 @@ CREATE TABLE drink (
   description VARCHAR(200) NULL,
   proof TINYINT NULL,
   price INT NULL,
-  number_of_like INT NOT NULL DEFAULT 0
+  number_of_like INT NOT NULL DEFAULT 0,
   PRIMARY KEY (drink_id)
 );
 
-CREATE TABLE user_drink (
-  user_drink_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS drink_card;
+CREATE TABLE drink_card (
+  drink_card_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
   drink_type VARCHAR(20) NOT NULL,
+  message VARCHAR(20) NOT NULL,
   level TINYINT NOT NULL DEFAULT 1,
-  PRIMARY KEY (user_drink_id),
-  CONSTRAINT fk_user_drink_user_user_Id
+  PRIMARY KEY (drink_card_id),
+  CONSTRAINT fk_drink_card_user_user_Id
     FOREIGN KEY (user_id)
     REFERENCES user (user_id),
 );
 
+DROP TABLE IF EXISTS drink_like;
 CREATE TABLE drink_like (
   user_id BIGINT UNSIGNED NOT NULL,
   drink_id BIGINT UNSIGNED NOT NULL,
@@ -42,11 +47,14 @@ CREATE TABLE drink_like (
     REFERENCES drink (drink_id)
 );
 
+DROP TABLE IF EXISTS drink_history;
 CREATE TABLE drink_history (
   drink_history_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
-  drink_type VARCHAR(20) NOT NULL,
-  drink_capacity TINYINT NOT NULL DEFAULT 0,
+  beer TINYINT NOT NULL DEFAULT 0,
+  soju TINYINT NOT NULL DEFAULT 0,
+  wine TINYINT NOT NULL DEFAULT 0,
+  makgeolli DECIMAL(3,1) NOT NULL DEFAULT 0,
   drunk_at DATE NOT NULL,
   PRIMARY KEY (drink_history_id),
   CONSTRAINT fk_drink_history_user_user_id

@@ -1,5 +1,6 @@
 package com.depromeet.yellowcardapi.controller;
 
+import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.dto.DrinkRequest;
 import com.depromeet.yellowcardapi.dto.DrinkResponse;
 import com.depromeet.yellowcardapi.domain.Drink;
@@ -7,6 +8,7 @@ import com.depromeet.yellowcardapi.service.DrinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class DrinkController {
+
     private final DrinkService drinkService;
 
     @PostMapping("/drinks")
@@ -36,15 +39,15 @@ public class DrinkController {
 
     @GetMapping("/drinks/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse getDrink(@PathVariable Integer drinkId) {
+    public DrinkResponse getDrink(@PathVariable Long drinkId) {
         Drink drink = drinkService.getDrink(drinkId);
         return DrinkResponse.from(drink);
     }
 
     @GetMapping("/drinks/likes/{drinkId}")
     @ResponseStatus(HttpStatus.OK)
-    public DrinkResponse likeDrink(@PathVariable Integer drinkId) {
-        Drink drink = drinkService.increaseLike(drinkId);
+    public DrinkResponse likeDrink(@ApiIgnore @UserId Long userId, @PathVariable Long drinkId) {
+        Drink drink = drinkService.likeDrink(userId, drinkId);
         return DrinkResponse.from(drink);
     }
 }
