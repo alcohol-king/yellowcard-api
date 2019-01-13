@@ -11,4 +11,6 @@ public interface DrinkService {
     Drink getDrink(Long drinkId);
     Drink likeDrink(Long userId, Long drinkId);
 
+    Drink updateDrink(Long drinkId, Drink drink);
+    Boolean deleteDrink(Long drinkId);
 }

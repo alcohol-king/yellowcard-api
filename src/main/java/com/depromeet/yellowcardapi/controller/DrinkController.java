@@ -4,6 +4,7 @@ import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.dto.DrinkRequest;
 import com.depromeet.yellowcardapi.dto.DrinkResponse;
 import com.depromeet.yellowcardapi.domain.Drink;
+import com.depromeet.yellowcardapi.exception.DrinkCRUDException;
 import com.depromeet.yellowcardapi.service.DrinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,24 @@ public class DrinkController {
     public DrinkResponse getDrink(@PathVariable Long drinkId) {
         Drink drink = drinkService.getDrink(drinkId);
         return DrinkResponse.from(drink);
+    }
+
+    @PutMapping("/drinks/{drinkId}")
+    @ResponseStatus(HttpStatus.OK)
+    public DrinkResponse updateDrink(@RequestBody DrinkRequest drinkRequest, @PathVariable Long drinkId) {
+        Drink drink = drinkService.updateDrink(drinkId, drinkRequest.toDrink());
+        return DrinkResponse.from(drink);
+    }
+
+    @DeleteMapping("/drinks/{drinkId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteDrink(@PathVariable Long drinkId) {
+        try {
+            drinkService.deleteDrink(drinkId);
+        } catch (DrinkCRUDException e) {
+            throw e;
+        }
+        return "술과사전 주종 삭제에 성공했습니다.";
     }
 
     @GetMapping("/drinks/likes/{drinkId}")
