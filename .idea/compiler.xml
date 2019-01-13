@@ -5,6 +5,8 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="com.depromeet.yellowcard-api.main" target="1.8" />
+      <module name="com.depromeet.yellowcard-api.test" target="1.8" />
       <module name="yellowcard-api_main" target="1.8" />
       <module name="yellowcard-api_test" target="1.8" />
     </bytecodeTargetLevel>
