@@ -60,7 +60,7 @@ public class DrinkController {
         } catch (DrinkCRUDException e) {
             throw e;
         }
-        return "음주 이력 삭제에 성공했습니다.";
+        return "술과사전 주종 삭제에 성공했습니다.";
     }
 
     @GetMapping("/drinks/likes/{drinkId}")

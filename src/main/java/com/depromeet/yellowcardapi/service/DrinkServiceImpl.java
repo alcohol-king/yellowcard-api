@@ -67,10 +67,10 @@ public class DrinkServiceImpl implements DrinkService {
 
     @Override
     public Boolean deleteDrink(Long drinkId) {
-        Drink history = drinkRepository.findById(drinkId)
+        Drink drink = drinkRepository.findById(drinkId)
                 .orElseThrow(DrinkNotFoundException::new);
 
-        drinkRepository.delete(history);
+        drinkRepository.delete(drink);
         return true;
     }
 
