@@ -1,8 +1,8 @@
 package com.depromeet.yellowcardapi.domain;
 
+import com.depromeet.yellowcardapi.service.DrinkCapacityCalculatorFactory;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -27,6 +27,8 @@ public class DrinkCard {
     private String message;
 
     private int level;
+    private boolean cardEnabled;
+    private boolean labelEnabled;
 
     @PrePersist
     private void prePersist() {
@@ -39,5 +41,10 @@ public class DrinkCard {
         this.drinkType = drinkType;
         this.message = message;
         this.level = level;
+    }
+
+    public String getDrinkCapacity() {
+        return DrinkCapacityCalculatorFactory.create(drinkType)
+                .calculateCapacity(level);
     }
 }
