@@ -22,4 +22,7 @@ public class MainResponse {
 
     @JsonProperty(value = "drink_cards")
     private List<DrinkCardResponse> drinkCards;
+
+    @JsonProperty(value = "drink_labels")
+    private List<DrinkLabelResponse> drinkLabels;
 }

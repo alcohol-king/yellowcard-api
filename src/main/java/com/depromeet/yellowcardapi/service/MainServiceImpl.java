@@ -5,6 +5,7 @@ import com.depromeet.yellowcardapi.domain.DrinkCardRepository;
 import com.depromeet.yellowcardapi.domain.User;
 import com.depromeet.yellowcardapi.domain.UserRepository;
 import com.depromeet.yellowcardapi.dto.DrinkCardResponse;
+import com.depromeet.yellowcardapi.dto.DrinkLabelResponse;
 import com.depromeet.yellowcardapi.dto.MainResponse;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class MainServiceImpl implements MainService {
                 .statusMessage(user.getStatusMessage())
                 .profileImageUrl(user.getThumbnailImageUrl())
                 .drinkCards(DrinkCardResponse.from(drinkCards))
+                .drinkLabels(DrinkLabelResponse.from(drinkCards))
                 .build();
     }
 }
