@@ -1,4 +1,4 @@
-package com.depromeet.yellowcardapi.service;
+package com.depromeet.yellowcardapi.utils;
 
 import com.depromeet.yellowcardapi.dto.DrinkCapacity;
 

@@ -1,6 +1,7 @@
 package com.depromeet.yellowcardapi.service;
 
 import com.depromeet.yellowcardapi.dto.DrinkCapacity;
+import com.depromeet.yellowcardapi.utils.DrinkCapacityPrinter;
 
 public abstract class DrinkCapacityCalculator {
 
