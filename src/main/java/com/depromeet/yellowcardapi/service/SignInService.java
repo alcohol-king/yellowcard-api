@@ -1,6 +1,8 @@
 package com.depromeet.yellowcardapi.service;
 
+import com.depromeet.yellowcardapi.dto.SignInRequest;
+
 public interface SignInService {
 
-    String signIn(String accessToken);
+    String signIn(SignInRequest request);
 }

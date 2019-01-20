@@ -3,6 +3,7 @@ package com.depromeet.yellowcardapi.config;
 import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.service.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;

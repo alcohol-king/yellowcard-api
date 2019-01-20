@@ -56,4 +56,22 @@ public class DrinkServiceImpl implements DrinkService {
         return drinkRepository.save(drink);
     }
 
+    @Override
+    public Drink updateDrink(Long drinkId, Drink drink) {
+        drinkRepository.findById(drinkId)
+                .orElseThrow(DrinkNotFoundException::new);
+
+        drink.setId(drinkId);
+        return drinkRepository.save(drink);
+    }
+
+    @Override
+    public Boolean deleteDrink(Long drinkId) {
+        Drink drink = drinkRepository.findById(drinkId)
+                .orElseThrow(DrinkNotFoundException::new);
+
+        drinkRepository.delete(drink);
+        return true;
+    }
+
 }
