@@ -27,7 +27,7 @@ public class DrinkCardResponse {
         for (DrinkCard drinkCard : drinkCards) {
             DrinkCardResponse drinkCardResponse = DrinkCardResponse.builder()
                     .drinkType(drinkCard.getDrinkType())
-                    .drinkCapacity(drinkCard.getDrinkCapacity())
+                    .drinkCapacity(drinkCard.getDrinkCapacityForView())
                     .message(drinkCard.getMessage())
                     .build();
             drinkCardResponses.add(drinkCardResponse);
