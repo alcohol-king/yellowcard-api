@@ -4,42 +4,28 @@ import com.depromeet.yellowcardapi.dto.DrinkCapacity;
 
 public class BeerCapacityCalculator extends DrinkCapacityCalculator {
 
-    private static final int MAX_LEVEL = 8;
+    private static final int[] CAPACITY_BY_LEVEL = {
+            300, 500, 1000, 1500, 2000, 3000, 5000
+    };
 
     @Override
     public DrinkCapacity calculate(double level) {
-        int capacity = 0;
+        int integerPartOfLevel = (int) level;
 
-        if (level == MAX_LEVEL) {
+        if (isGreaterThanMaxLevel(integerPartOfLevel)) {
             return DrinkCapacity.builder()
                     .isInfinity(true)
                     .build();
         }
 
-        switch ((int) level) {
-            case 1:
-                capacity = 300;
-                break;
-            case 2:
-                capacity = 500;
-                break;
-            case 3:
-                capacity = 1000;
-                break;
-            case 4:
-                capacity = 1500;
-                break;
-            case 5:
-                capacity = 2000;
-                break;
-            case 6:
-                capacity = 3000;
-                break;
-            case 7:
-                capacity = 5000;
-                break;
-            default:
-                throw new IllegalArgumentException("계산 불가능한 레벨입니다.");
+        int capacity = CAPACITY_BY_LEVEL[integerPartOfLevel - 1];
+
+        int nextLevel = integerPartOfLevel + 1;
+        if (!isGreaterThanMaxLevel(nextLevel)) {
+            int nextCapacity = CAPACITY_BY_LEVEL[nextLevel - 1];
+            int differenceOfLevel = nextCapacity - capacity;
+
+            capacity += differenceOfLevel * (level - integerPartOfLevel);
         }
 
         return DrinkCapacity.builder()
@@ -50,5 +36,9 @@ public class BeerCapacityCalculator extends DrinkCapacityCalculator {
     @Override
     public String getUnit() {
         return "cc";
+    }
+
+    private boolean isGreaterThanMaxLevel(int level) {
+        return level >= 8;
     }
 }

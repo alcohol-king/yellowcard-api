@@ -5,41 +5,29 @@ import com.depromeet.yellowcardapi.dto.DrinkCapacity;
 public class SojuCapacityCalculator extends DrinkCapacityCalculator {
 
     private static final int MAX_LEVEL = 7;
+    private static final int CAPACITY_PER_LEVEL = 1;
 
     @Override
     public DrinkCapacity calculate(double level) {
-        double capacity = 0;
+        int integerPartOfLevel = (int) level;
 
-        if (level == MAX_LEVEL) {
+        if (isGreaterThanMaxLevel(integerPartOfLevel)) {
             return DrinkCapacity.builder()
                     .isInfinity(true)
                     .build();
         }
 
-        switch ((int) level) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                capacity = level;
-                break;
-            default:
-                throw new IllegalArgumentException("계산 불가능한 레벨입니다.");
-        }
-
-        if (level % 1 != 0) {
-            capacity += 0.5;
-        }
-
         return DrinkCapacity.builder()
-                .value(capacity)
+                .value(CAPACITY_PER_LEVEL * level)
                 .build();
     }
 
     @Override
     public String getUnit() {
         return "병";
+    }
+
+    private boolean isGreaterThanMaxLevel(int level) {
+        return level >= 7;
     }
 }

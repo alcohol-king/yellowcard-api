@@ -2,8 +2,6 @@ package com.depromeet.yellowcardapi.utils;
 
 import com.depromeet.yellowcardapi.dto.DrinkCapacity;
 
-import java.text.DecimalFormat;
-
 public class DrinkCapacityPrinter {
 
     private String unit;
@@ -16,7 +14,7 @@ public class DrinkCapacityPrinter {
         if (capacity.isInfinity()) {
             return "무한" + unit;
         } else {
-            return new DecimalFormat("#.##").format(capacity.getValue()) + unit;
+            return Math.round(capacity.getValue() * 10) / 10 + unit;
         }
     }
 }
