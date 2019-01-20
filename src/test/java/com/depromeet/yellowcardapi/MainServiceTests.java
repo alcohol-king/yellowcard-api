@@ -47,29 +47,29 @@ public class MainServiceTests {
         DrinkCard beerCard = DrinkCard.builder()
                 .user(user)
                 .drinkType(DrinkType.BEER)
-                .message("3잔까지는 깔끔하게")
-                .level(2)
+                .message("깔끔하게")
+                .drinkCapacity(700)
                 .build();
 
         DrinkCard sojuCard = DrinkCard.builder()
                 .user(user)
                 .drinkType(DrinkType.SOJU)
-                .message("2병까지는 멀쩡하게")
-                .level(4)
+                .message("멀쩡하게")
+                .drinkCapacity(4.5)
                 .build();
 
         DrinkCard wineCard = DrinkCard.builder()
                 .user(user)
                 .drinkType(DrinkType.WINE)
-                .message("2잔까지는 즐기면서")
-                .level(2)
+                .message("즐기면서")
+                .drinkCapacity(2.1)
                 .build();
 
         DrinkCard makgeolliCard = DrinkCard.builder()
                 .user(user)
                 .drinkType(DrinkType.MAKGEOLLI)
-                .message("4잔까지는 깔끔하게")
-                .level(3)
+                .message("깔끔하게")
+                .drinkCapacity(3.4)
                 .build();
 
         drinkCards.add(beerCard);
@@ -93,6 +93,7 @@ public class MainServiceTests {
             DrinkCard drinkCard = drinkCards.get(i);
 
             assertEquals(drinkCardResponse.getDrinkType(), drinkCard.getDrinkType().name());
+            assertEquals(drinkCardResponse.getDrinkCapacity(), drinkCard.getDrinkCapacityForView());
             assertEquals(drinkCardResponse.getMessage(), drinkCard.getMessage());
         }
 

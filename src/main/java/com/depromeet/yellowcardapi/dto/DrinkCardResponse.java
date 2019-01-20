@@ -17,6 +17,9 @@ public class DrinkCardResponse {
     @JsonProperty(value = "drink_type")
     private String drinkType;
 
+    @JsonProperty(value = "drink_capacity")
+    private String drinkCapacity;
+
     private String message;
 
     public static List<DrinkCardResponse> from(List<DrinkCard> drinkCards) {
@@ -24,6 +27,7 @@ public class DrinkCardResponse {
         for (DrinkCard drinkCard : drinkCards) {
             DrinkCardResponse drinkCardResponse = DrinkCardResponse.builder()
                     .drinkType(drinkCard.getDrinkType())
+                    .drinkCapacity(drinkCard.getDrinkCapacityForView())
                     .message(drinkCard.getMessage())
                     .build();
             drinkCardResponses.add(drinkCardResponse);

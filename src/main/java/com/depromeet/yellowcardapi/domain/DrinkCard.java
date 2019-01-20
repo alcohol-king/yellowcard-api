@@ -1,8 +1,10 @@
 package com.depromeet.yellowcardapi.domain;
 
+import com.depromeet.yellowcardapi.service.DrinkLevelCalculatorFactory;
+import com.depromeet.yellowcardapi.utils.DrinkCapacityPrinter;
+import com.depromeet.yellowcardapi.utils.DrinkCapacityPrinterFactory;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -26,18 +28,30 @@ public class DrinkCard {
     @Column(length = 20, nullable = false)
     private String message;
 
-    private int level;
+    private double drinkCapacity;
+    private boolean cardEnabled;
+    private boolean labelEnabled;
 
     @PrePersist
     private void prePersist() {
-        if (level == 0) level = 1;
+        if (drinkCapacity == 0) drinkCapacity = 1;
     }
 
     @Builder
-    public DrinkCard(User user, DrinkType drinkType, String message, int level) {
+    public DrinkCard(User user, DrinkType drinkType, String message, double drinkCapacity) {
         this.user = user;
         this.drinkType = drinkType;
         this.message = message;
-        this.level = level;
+        this.drinkCapacity = drinkCapacity;
+    }
+
+    public double getLevel() {
+        return DrinkLevelCalculatorFactory.create(drinkType)
+                .calculateLevel(drinkCapacity);
+    }
+
+    public String getDrinkCapacityForView() {
+        return DrinkCapacityPrinterFactory.create(drinkType)
+                .print(drinkCapacity);
     }
 }
