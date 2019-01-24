@@ -1,5 +1,6 @@
 package com.depromeet.yellowcardapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 public class User {
 
@@ -45,16 +48,6 @@ public class User {
     @OneToMany
     @JoinColumn(name = "user_id")
     private Set<History> drinkHistories = new HashSet<>();
-
-    @Builder
-    public User(Long externalId, String name, String profileImageUrl,
-                String thumbnailImageUrl, String statusMessage) {
-        this.externalId = externalId;
-        this.name = name;
-        this.profileImageUrl = profileImageUrl;
-        this.thumbnailImageUrl = thumbnailImageUrl;
-        this.statusMessage = statusMessage;
-    }
 
     public void setId(Long id) {
         this.id = id;

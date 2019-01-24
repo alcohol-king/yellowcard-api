@@ -5,11 +5,13 @@ import com.depromeet.yellowcardapi.utils.DrinkCapacityPrinter;
 import com.depromeet.yellowcardapi.utils.DrinkCapacityPrinterFactory;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 public class DrinkCard {
 
     @Id
