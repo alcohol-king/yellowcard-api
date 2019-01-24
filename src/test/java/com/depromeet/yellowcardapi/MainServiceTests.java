@@ -39,7 +39,13 @@ public class MainServiceTests {
 
     @Before
     public void init() {
-        user = new User(1L, "조성빈", null, null, "힘든 날에는 소주가 땡겨, 가끔은 쏘맥도");
+        user = User.builder()
+                .id(1L)
+                .externalId(1L)
+                .name("술쟁이")
+                .statusMessage("힘든 날에는 소주가 땡겨, 가끔은 쏘맥도")
+                .build();
+
         given(userRepository.findById(user.getId())).willReturn(Optional.of(user));
 
         drinkCards = new ArrayList<>();
