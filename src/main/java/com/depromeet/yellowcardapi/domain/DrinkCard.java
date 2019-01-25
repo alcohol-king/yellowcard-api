@@ -52,7 +52,7 @@ public class DrinkCard {
                 .calculateLevel(drinkCapacity);
     }
 
-    public String getDrinkCapacityForView() {
+    public String getDrinkCapacityWithUnit() {
         return DrinkCapacityPrinterFactory.create(drinkType)
                 .print(drinkCapacity);
     }

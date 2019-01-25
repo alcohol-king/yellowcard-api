@@ -99,7 +99,7 @@ public class MainServiceTests {
             DrinkCard drinkCard = drinkCards.get(i);
 
             assertEquals(drinkCardResponse.getDrinkType(), drinkCard.getDrinkType().name());
-            assertEquals(drinkCardResponse.getDrinkCapacity(), drinkCard.getDrinkCapacityForView());
+            assertEquals(drinkCardResponse.getDrinkCapacity(), drinkCard.getDrinkCapacityWithUnit());
             assertEquals(drinkCardResponse.getMessage(), drinkCard.getMessage());
         }
 
