@@ -3,6 +3,7 @@ package com.depromeet.yellowcardapi.service;
 import com.depromeet.yellowcardapi.domain.DrinkCard;
 import com.depromeet.yellowcardapi.domain.DrinkCardRepository;
 import com.depromeet.yellowcardapi.dto.CreateDrinkCardRequest;
+import com.depromeet.yellowcardapi.exception.DrinkCardNotFoundException;
 import com.depromeet.yellowcardapi.exception.DrinkNotFoundException;
 import com.depromeet.yellowcardapi.exception.UnauthorizationException;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,17 @@ public class DrinkCardServiceImpl implements DrinkCardService {
     private final DrinkCardRepository drinkCardRepository;
 
     @Override
-    public void createDrinkCard(Long userId, CreateDrinkCardRequest request) {
-        request.getDrinkType();
-
+    public DrinkCard createDrinkCard(Long userId, final DrinkCard drinkCardToUpdate) {
         List<DrinkCard> drinkCards = drinkCardRepository.findByUserId(userId);
-        drinkCards.stream();
+
+        DrinkCard drinkCard = drinkCards.stream()
+                .filter(d -> d.getDrinkType() == drinkCardToUpdate.getDrinkType())
+                .findFirst()
+                .orElseThrow(DrinkCardNotFoundException::new);
+
+        drinkCard.setMessage(drinkCardToUpdate.getMessage());
+        drinkCard.setCardEnabled(true);
+        return drinkCardRepository.save(drinkCard);
     }
 
     public void removeDrinkCard(Long userId, Long drinkCardId) {

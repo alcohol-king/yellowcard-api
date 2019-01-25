@@ -1,6 +1,7 @@
 package com.depromeet.yellowcardapi.dto;
 
 import com.depromeet.yellowcardapi.domain.DrinkCard;
+import com.depromeet.yellowcardapi.domain.DrinkType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -14,6 +15,8 @@ public class CreateDrinkCardRequest {
 
     public DrinkCard toDrinkCard() {
         return DrinkCard.builder()
+                .drinkType(DrinkType.valueOf(drinkType))
+                .message(message)
                 .build();
     }
 }

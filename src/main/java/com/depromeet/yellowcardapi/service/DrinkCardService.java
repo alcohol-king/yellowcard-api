@@ -1,9 +1,10 @@
 package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.dto.CreateDrinkCardRequest;
+import com.depromeet.yellowcardapi.domain.DrinkCard;
 
 public interface DrinkCardService {
 
-    void createDrinkCard(Long userId, CreateDrinkCardRequest request);
+    DrinkCard createDrinkCard(Long userId, DrinkCard drinkCard);
+
     void removeDrinkCard(Long userId, Long drinkCardId);
 }

@@ -17,7 +17,7 @@ public class DrinkCardController {
 
     @PostMapping("/cards")
     public void createDrinkCard(@UserId Long userId, CreateDrinkCardRequest request) {
-        drinkCardService.createDrinkCard(userId, request);
+        drinkCardService.createDrinkCard(userId, request.toDrinkCard());
     }
 
     @DeleteMapping("/cards/{drinkCardId}")
