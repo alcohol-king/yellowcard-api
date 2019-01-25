@@ -1,11 +1,9 @@
 package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.domain.History;
-import com.depromeet.yellowcardapi.domain.HistoryRepository;
-import com.depromeet.yellowcardapi.domain.User;
-import com.depromeet.yellowcardapi.domain.UserRepository;
-import com.depromeet.yellowcardapi.exception.HistoryNotFoundException;
+import com.depromeet.yellowcardapi.domain.*;
 import com.depromeet.yellowcardapi.exception.HistoryCRUDException;
+import com.depromeet.yellowcardapi.exception.HistoryNotFoundException;
+import com.depromeet.yellowcardapi.exception.UnknownDrinkTypeException;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +18,21 @@ public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
     private final UserRepository userRepository;
+    private final DrinkCardRepository drinkCardRepository;
 
     @Override
-    public History createHistory(Long userId, History history) throws HistoryCRUDException {
+    public History createHistory(Long userId, History historyToCreate) throws HistoryCRUDException {
         User user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
-        history.setUserId(userId);
-        Long result = user.addHistory(history);
+        historyToCreate.setUserId(userId);
+        Long result = user.addHistory(historyToCreate);
 
-        return result == -1 ? historyRepository.save(history) : updateHistory(result, history);
+        History history = result == -1 ? historyRepository.save(historyToCreate) : updateHistory(result, historyToCreate);
+
+        updateDrinkCapacityOfDrinkCards(userId, history);
+
+        return history;
     }
 
     @Override
@@ -74,4 +77,32 @@ public class HistoryServiceImpl implements HistoryService {
                 .collect(Collectors.toList());
     }
 
+    private List<DrinkCard> updateDrinkCapacityOfDrinkCards(Long userId, History history) {
+        List<DrinkCard> drinkCards = drinkCardRepository.findByUserId(userId);
+        return drinkCards.stream()
+                .map(drinkCard -> {
+                    double averageDrinkCapacity = 0;
+
+                    switch (drinkCard.getDrinkType()) {
+                        case BEER:
+                            averageDrinkCapacity = (drinkCard.getDrinkCapacity() + history.getBeer()) / 2d;
+                            break;
+                        case SOJU:
+                            averageDrinkCapacity = (drinkCard.getDrinkCapacity() + history.getSoju()) / 2d;
+                            break;
+                        case WINE:
+                            averageDrinkCapacity = (drinkCard.getDrinkCapacity() + history.getWine()) / 2d;
+                            break;
+                        case MAKGEOLLI:
+                            averageDrinkCapacity = (drinkCard.getDrinkCapacity() + history.getMakgeolli()) / 2d;
+                            break;
+                        default:
+                            throw new UnknownDrinkTypeException();
+                    }
+
+                    drinkCard.setDrinkCapacity(averageDrinkCapacity);
+                    return drinkCardRepository.save(drinkCard);
+                })
+                .collect(Collectors.toList());
+    }
 }
