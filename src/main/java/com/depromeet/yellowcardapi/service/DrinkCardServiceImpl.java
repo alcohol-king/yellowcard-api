@@ -1,14 +1,15 @@
 package com.depromeet.yellowcardapi.service;
 
-import com.depromeet.yellowcardapi.domain.DrinkCard;
-import com.depromeet.yellowcardapi.domain.DrinkCardRepository;
+import com.depromeet.yellowcardapi.domain.*;
 import com.depromeet.yellowcardapi.dto.CreateDrinkCardRequest;
 import com.depromeet.yellowcardapi.exception.DrinkCardNotFoundException;
 import com.depromeet.yellowcardapi.exception.DrinkNotFoundException;
 import com.depromeet.yellowcardapi.exception.UnauthorizationException;
+import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,6 +17,23 @@ import java.util.List;
 public class DrinkCardServiceImpl implements DrinkCardService {
 
     private final DrinkCardRepository drinkCardRepository;
+    private final UserRepository userRepository;
+
+    @Override
+    public void initDrinkCards(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+
+        Arrays.asList(DrinkType.values())
+                .forEach(drinkType ->
+                    drinkCardRepository.save(
+                            DrinkCard.builder()
+                                    .user(user)
+                                    .drinkType(drinkType)
+                                    .build()
+                    )
+                );
+    }
 
     @Override
     public DrinkCard createDrinkCard(Long userId, final DrinkCard drinkCardToUpdate) {
