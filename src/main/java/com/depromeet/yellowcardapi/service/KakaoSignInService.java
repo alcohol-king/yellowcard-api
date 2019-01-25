@@ -7,6 +7,7 @@ import com.depromeet.yellowcardapi.dto.SignInRequest;
 import com.depromeet.yellowcardapi.exception.KakaoAuthenticationFailedException;
 import com.depromeet.yellowcardapi.exception.UserNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,21 +19,16 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
 public class KakaoSignInService implements SignInService {
 
     public static final String KAKAO_USER_ME_URL = "https://kapi.kakao.com/v2/user/me";
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JwtTokenProvider tokenProvider;
-
-    @Autowired
-    private OkHttpClient httpClient;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final UserRepository userRepository;
+    private final DrinkCardService drinkCardService;
+    private final JwtTokenProvider tokenProvider;
+    private final OkHttpClient httpClient;
+    private final ObjectMapper objectMapper;
 
     @Override
     public String signIn(SignInRequest request) {
@@ -50,11 +46,7 @@ public class KakaoSignInService implements SignInService {
                     if (StringUtils.isBlank(request.getUserName())) {
                         throw new UserNotFoundException();
                     }
-                    return userRepository.save(User.builder()
-                            .externalId(externalId)
-                            .name(request.getUserName())
-                            .statusMessage(request.getStatusMessage())
-                            .build());
+                    return signUp(externalId, request.getUserName(), request.getStatusMessage());
                 });
 
         return tokenProvider.generateToken(user);
@@ -73,5 +65,17 @@ public class KakaoSignInService implements SignInService {
         }
 
         return objectMapper.readValue(response.body().string(), KakaoUserMeResponse.class);
+    }
+
+    private User signUp(Long externalId, String userName, String statusMessage) {
+        User user = userRepository.save(User.builder()
+                .externalId(externalId)
+                .name(userName)
+                .statusMessage(statusMessage)
+                .build());
+
+        drinkCardService.initDrinkCards(user.getId());
+
+        return user;
     }
 }
