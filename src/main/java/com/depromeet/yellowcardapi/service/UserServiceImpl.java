@@ -32,4 +32,8 @@ public class UserServiceImpl implements UserService {
                 .labels(DrinkLabelResponse.from(drinkCards))
                 .build();
     }
+
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
 }

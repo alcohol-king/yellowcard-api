@@ -5,4 +5,5 @@ import com.depromeet.yellowcardapi.dto.UserResponse;
 public interface UserService {
 
     UserResponse findByUserId(Long userId);
+    void deleteAllUsers();
 }

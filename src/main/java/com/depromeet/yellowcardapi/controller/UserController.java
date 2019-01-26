@@ -4,6 +4,7 @@ import com.depromeet.yellowcardapi.config.annotation.UserId;
 import com.depromeet.yellowcardapi.dto.UserResponse;
 import com.depromeet.yellowcardapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,5 +17,10 @@ public class UserController {
     @GetMapping("/user/me")
     public UserResponse userMe(@UserId Long userId) {
         return userService.findByUserId(userId);
+    }
+
+    @DeleteMapping("/users")
+    public void deleteAllUsers() {
+        userService.deleteAllUsers();
     }
 }
