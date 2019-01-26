@@ -1,0 +1,87 @@
+settings: &settings
+  docker:
+    - image: circleci/openjdk:8-jdk
+  working_directory: ~/yellowcard-api
+  environment:
+    JVM_OPTS: -Xmx3200m
+    TERM: dumb
+
+version: 2.1
+commands:
+  prepare-steps:
+    steps:
+      - run:
+          name: Add Permission
+          command: chmod +x ./gradlew
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Download Dependencies
+          command: ./gradlew dependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+jobs:
+  test:
+    <<: *settings
+    steps:
+      - checkout
+      - prepare-steps
+      - run:
+          name: Run Tests
+          command: ./gradlew test
+      - store_artifacts:
+          path: build/reports/tests/test
+      - store_test_results:
+          path: build/test-results/test
+  build:
+    <<: *settings
+    steps:
+      - checkout
+      - prepare-steps
+      - run:
+          name: Build
+          command: ./gradlew build -x test
+      - store_artifacts:
+          path: build/libs
+      - persist_to_workspace:
+          root: ~/yellowcard-api/target
+          paths:
+            - build/libs/yellowcard-api-*.jar
+  deploy:
+    <<: *settings
+    steps:
+      - attach_workspace:
+          at: ~/yellowcard-api/target
+      - add_ssh_keys:
+          fingerprints:
+            - "2b:7a:75:0b:9d:f0:8c:11:ed:3c:7c:31:db:b8:e7:33"
+      - run:
+          name: Stop App
+          command: ssh -o StrictHostKeyChecking=no 52.78.221.147 '~/web/deploy.sh stop'
+      - run:
+          name: Copy App
+          command: scp -o ~/yellowcard-api/target/depromeet-4th-final-0.0.1.jar 52.78.221.147:~/web
+      - run:
+          name: Start App
+          command: ssh -o 52.78.221.147 '~/web/deploy.sh start'
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
+                - feature/*
+      - deploy:
+          requires:
+            - build
