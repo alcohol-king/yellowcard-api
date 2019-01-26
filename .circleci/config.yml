@@ -77,11 +77,6 @@ workflows:
       - build:
           requires:
             - test
-          filters:
-            branches:
-              only:
-                - develop
-                - feature/*
       - deploy:
           requires:
             - build
