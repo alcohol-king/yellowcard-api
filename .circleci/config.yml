@@ -49,14 +49,14 @@ jobs:
       - store_artifacts:
           path: build/libs
       - persist_to_workspace:
-          root: ~/yellowcard-api/target
+          root: ~/yellowcard-api/build
           paths:
             - build/libs/yellowcard-api-*.jar
   deploy:
     <<: *settings
     steps:
       - attach_workspace:
-          at: ~/yellowcard-api/target
+          at: ~/yellowcard-api/build
       - add_ssh_keys:
           fingerprints:
             - "2b:7a:75:0b:9d:f0:8c:11:ed:3c:7c:31:db:b8:e7:33"
@@ -65,7 +65,7 @@ jobs:
           command: ssh -o StrictHostKeyChecking=no 52.78.221.147 '~/web/deploy.sh stop'
       - run:
           name: Copy App
-          command: scp -o ~/yellowcard-api/target/depromeet-4th-final-0.0.1.jar 52.78.221.147:~/web
+          command: scp -o ~/yellowcard-api/build/depromeet-4th-final-0.0.1.jar 52.78.221.147:~/web
       - run:
           name: Start App
           command: ssh -o 52.78.221.147 '~/web/deploy.sh start'
