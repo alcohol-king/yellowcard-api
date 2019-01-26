@@ -49,14 +49,14 @@ jobs:
       - store_artifacts:
           path: build/libs
       - persist_to_workspace:
-          root: ~/yellowcard-api/build
+          root: ~/yellowcard-api/build/libs
           paths:
-            - build/libs/yellowcard-api-*.jar
+            - yellowcard-api-0.0.1.jar
   deploy:
     <<: *settings
     steps:
       - attach_workspace:
-          at: ~/yellowcard-api/build
+          at: ~/yellowcard-api/build/libs
       - add_ssh_keys:
           fingerprints:
             - "2b:7a:75:0b:9d:f0:8c:11:ed:3c:7c:31:db:b8:e7:33"
