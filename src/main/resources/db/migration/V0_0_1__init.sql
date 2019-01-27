@@ -27,7 +27,7 @@ CREATE TABLE drink_card (
   PRIMARY KEY (drink_card_id),
   CONSTRAINT fk_drink_card_user_user_Id
     FOREIGN KEY (user_id)
-    REFERENCES user (user_id),
+    REFERENCES user (user_id)
 );
 
 CREATE TABLE drink_like (
