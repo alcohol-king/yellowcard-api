@@ -23,7 +23,7 @@ public class PropertiesEnvironmentPostProcessor implements EnvironmentPostProces
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         try {
-            Resource resource = new FileSystemResource("/yellowcard.properties");
+            Resource resource = new FileSystemResource("~/yellowcard.properties");
             List<PropertySource<?>> propertySources = loader.load("jwt.secret", resource);
             for (PropertySource<?> propertySource : propertySources) {
                 environment.getPropertySources().addLast(propertySource);
