@@ -22,7 +22,7 @@ CREATE TABLE drink (
   proof TINYINT NULL,
   price INT NULL,
   number_of_like INT NOT NULL DEFAULT 0,
-  image_url NULL,
+  image_url TEXT NULL,
   PRIMARY KEY (drink_id)
 );
 
