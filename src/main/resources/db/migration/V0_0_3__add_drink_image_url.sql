@@ -1,4 +1,9 @@
+DROP TABLE IF EXISTS drink_like;
+DROP TABLE IF EXISTS drink_card;
+DROP TABLE IF EXISTS drink_history;
+DROP TABLE IF EXISTS drink;
 DROP TABLE IF EXISTS user;
+
 CREATE TABLE user (
   user_id BIGINT UNSIGNED NOT NULL,
   external_id BIGINT UNSIGNED NOT NULL,
@@ -9,7 +14,6 @@ CREATE TABLE user (
   PRIMARY KEY (user_id)
 );
 
-DROP TABLE IF EXISTS drink;
 CREATE TABLE drink (
   drink_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
@@ -22,7 +26,6 @@ CREATE TABLE drink (
   PRIMARY KEY (drink_id)
 );
 
-DROP TABLE IF EXISTS drink_card;
 CREATE TABLE drink_card (
   drink_card_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
@@ -35,7 +38,6 @@ CREATE TABLE drink_card (
     REFERENCES user (user_id)
 );
 
-DROP TABLE IF EXISTS drink_like;
 CREATE TABLE drink_like (
   user_id BIGINT UNSIGNED NOT NULL,
   drink_id BIGINT UNSIGNED NOT NULL,
@@ -48,7 +50,6 @@ CREATE TABLE drink_like (
     REFERENCES drink (drink_id)
 );
 
-DROP TABLE IF EXISTS drink_history;
 CREATE TABLE drink_history (
   drink_history_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id BIGINT UNSIGNED NOT NULL,
