@@ -16,14 +16,15 @@ import java.util.List;
 
 public class PropertiesEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final String XDG_CONFIG_HOME = System.getenv("XDG_CONFIG_HOME");
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PropertySourceLoader loader = new PropertiesPropertySourceLoader();
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         try {
-            Resource resource = new FileSystemResource("$XDG_CONFIG_HOME/yellowcard.properties");
+            Resource resource = new FileSystemResource(XDG_CONFIG_HOME + "/yellowcard.properties");
             List<PropertySource<?>> propertySources = loader.load("jwt.secret", resource);
             for (PropertySource<?> propertySource : propertySources) {
                 environment.getPropertySources().addLast(propertySource);
